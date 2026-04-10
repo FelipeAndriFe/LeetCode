@@ -1,3 +1,5 @@
+//Descrição: somar dois numeros contidos em listas encadeadas e retornar uma outra lista com a resposta
+
 #include <stdlib.h>
 
 struct ListNode {
