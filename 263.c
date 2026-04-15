@@ -1,0 +1,24 @@
+//Descrição: verifica se o numero é feio (numero positivo que possui só 2, 3 e 5 como fatores primos)
+
+#include <stdbool.h>
+
+bool isUgly(int n) {
+
+    if ( n <= 0 ) {
+        return false;
+    }
+    
+    while ( n != 1 ) {
+        if ( n % 2 == 0 ) {
+            n /= 2;
+        } else if ( n % 3 == 0 ) {
+            n /= 3;
+        } else if ( n % 5 == 0 ) {
+            n /= 5;
+        } else {
+            return false;
+        }
+    }
+
+    return true;
+}
