@@ -5,36 +5,29 @@ struct ListNode {
     struct ListNode *next;
 };
 
-void Insert(struct ListNode **p, int x) {
-    struct ListNode *new, *i;
-    new = (struct ListNode *)malloc(sizeof(struct ListNode));
-    if (!new) return;
-
-    new->val = x;
-    new->next = NULL;
-
-    if (*p == NULL) {
-        *p = new;
-    } else if ((*p)->val > x) {
-        new->next = *p;
-        *p = new;
-    } else {
-        for (i = *p; i->next != NULL && i->next->val < x; i = i->next);
-        new->next = i->next;
-        i->next = new;
-    }
- }
-
 struct ListNode* insertionSortList(struct ListNode* head) {
-    struct ListNode *result, *i;
+    struct ListNode dummy, *last, *curr, *i, *temp;
 
-    if (head->next == NULL) {
+    if (!head || !head->next) {
         return head;
     }
 
-    for (i = head; i != NULL; i = i->next) {
-        Insert(&result, i->val);
+    dummy.next = head;
+    last = head;
+    curr = head->next;
+
+    while (curr) {
+        temp = curr->next;
+        if (curr->val >= last->val) {
+            last = last->next;
+        } else {
+            for (i = &dummy; i->next != NULL && i->next->val < curr->val; i = i->next);
+            last->next = curr->next;
+            curr->next = i->next;
+            i->next = curr;
+        }
+        curr = temp;
     }
 
-    return result;
+    return dummy.next;
 }
